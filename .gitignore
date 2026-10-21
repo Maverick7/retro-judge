@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.egg-info/
+build/
+dist/
+results/retro/ui_games.jsonl
+# never commit game ROMs
+*.bin
+*.md5
+*.sfc
+*.smc
+*.gen
+*.md
+roms/
+!README.md

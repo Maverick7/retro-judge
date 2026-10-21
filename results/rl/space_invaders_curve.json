@@ -1,0 +1,98 @@
+[
+ {
+  "episode": 10,
+  "train_score": 385.0,
+  "eval_mean": 318.3333333333333,
+  "eval": [
+   390.0,
+   330.0,
+   235.0
+  ],
+  "steps": 4382,
+  "minutes": 0.2
+ },
+ {
+  "episode": 20,
+  "train_score": 210.0,
+  "eval_mean": 315.0,
+  "eval": [
+   180.0,
+   395.0,
+   370.0
+  ],
+  "steps": 11231,
+  "minutes": 0.5
+ },
+ {
+  "episode": 30,
+  "train_score": 100.0,
+  "eval_mean": 218.33333333333334,
+  "eval": [
+   230.0,
+   365.0,
+   60.0
+  ],
+  "steps": 18543,
+  "minutes": 0.9
+ },
+ {
+  "episode": 40,
+  "train_score": 105.0,
+  "eval_mean": 155.0,
+  "eval": [
+   180.0,
+   210.0,
+   75.0
+  ],
+  "steps": 24664,
+  "minutes": 1.1
+ },
+ {
+  "episode": 50,
+  "train_score": 215.0,
+  "eval_mean": 76.66666666666667,
+  "eval": [
+   25.0,
+   55.0,
+   150.0
+  ],
+  "steps": 31144,
+  "minutes": 1.4
+ },
+ {
+  "episode": 60,
+  "train_score": 110.0,
+  "eval_mean": 125.0,
+  "eval": [
+   140.0,
+   155.0,
+   80.0
+  ],
+  "steps": 37654,
+  "minutes": 1.7
+ },
+ {
+  "episode": 70,
+  "train_score": 130.0,
+  "eval_mean": 183.33333333333334,
+  "eval": [
+   260.0,
+   80.0,
+   210.0
+  ],
+  "steps": 43200,
+  "minutes": 2.0
+ },
+ {
+  "episode": 80,
+  "train_score": 350.0,
+  "eval_mean": 323.3333333333333,
+  "eval": [
+   230.0,
+   210.0,
+   530.0
+  ],
+  "steps": 49827,
+  "minutes": 2.3
+ }
+]

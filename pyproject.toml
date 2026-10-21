@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "retro-judge"
+version = "0.1.0"
+description = "Can typed decision models play retro games? An honest benchmark with Laya, DQN and imitation learning."
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "Dickson Xavier"}]
+dependencies = ["numpy>=1.24", "scipy>=1.10", "scikit-learn>=1.3", "ale-py>=0.9"]
+
+[project.optional-dependencies]
+laya = ["laya>=0.3.20"]
+genesis = ["stable-retro>=0.9"]
+
+[project.scripts]
+retrojudge = "retrojudge.cli:main"
+
+[tool.setuptools]
+packages = ["retrojudge"]
+
+[tool.setuptools.package-data]
+retrojudge = ["*.html"]

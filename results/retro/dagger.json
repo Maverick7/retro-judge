@@ -1,0 +1,38 @@
+[
+ {
+  "score": 240.0,
+  "decisions": 400,
+  "frames": 3200,
+  "lives_left": 1,
+  "decide_ms_p50": 0.15702800001804462,
+  "round": 0,
+  "trained_on": 400,
+  "laya_calls": 69,
+  "laya_call_rate": 0.172,
+  "tau": 0.6857215100865045
+ },
+ {
+  "score": 240.0,
+  "decisions": 400,
+  "frames": 3200,
+  "lives_left": 1,
+  "decide_ms_p50": 0.15302950001228055,
+  "round": 1,
+  "trained_on": 469,
+  "laya_calls": 85,
+  "laya_call_rate": 0.212,
+  "tau": 0.7839492946406184
+ },
+ {
+  "score": 240.0,
+  "decisions": 400,
+  "frames": 3200,
+  "lives_left": 1,
+  "decide_ms_p50": 0.15232950002541656,
+  "round": 2,
+  "trained_on": 554,
+  "laya_calls": 70,
+  "laya_call_rate": 0.175,
+  "tau": 0.7780383447971551
+ }
+]

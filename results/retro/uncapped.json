@@ -1,0 +1,11 @@
+{
+ "score": 320.0,
+ "decisions": 561,
+ "frames": 4488,
+ "lives_left": 0,
+ "decide_ms_p50": 0.16053000001647888,
+ "agent": "student+laya_on_call",
+ "uncapped_limit": 3000,
+ "laya_calls": 91,
+ "laya_call_rate": 0.162
+}

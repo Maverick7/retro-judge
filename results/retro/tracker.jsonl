@@ -1,0 +1,5 @@
+{"score": 360.0, "decisions": 227, "frames": 1816, "lives_left": 0, "decide_ms_p50": 0.0018289999985654504, "agent": "tracker", "episode": 0}
+{"score": 320.0, "decisions": 217, "frames": 1736, "lives_left": 0, "decide_ms_p50": 0.0018129999972416044, "agent": "tracker", "episode": 1}
+{"score": 440.0, "decisions": 270, "frames": 2160, "lives_left": 0, "decide_ms_p50": 0.002160500010006672, "agent": "tracker", "episode": 2}
+{"score": 320.0, "decisions": 215, "frames": 1720, "lives_left": 0, "decide_ms_p50": 0.0022669999850677414, "agent": "tracker", "episode": 3}
+{"score": 360.0, "decisions": 237, "frames": 1896, "lives_left": 0, "decide_ms_p50": 0.0023190000035810954, "agent": "tracker", "episode": 4}

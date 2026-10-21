@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Retro-Judge</title>
+<style>
+:root{
+  --paper:#EAF0EC; --sheet:#F7FAF8; --ink:#16241D; --muted:#56675E; --line:#C6D2CB;
+  --honey:#A8680F; --pass:#2D7447; --fail:#AE3535; --run:#2F5E8C;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root{--paper:#101814;--sheet:#17211C;--ink:#E3ECE6;--muted:#9AAAA1;--line:#2B3A32;--honey:#E0A240;--pass:#6CC08A;--fail:#E27878;--run:#79A9DA}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.5 var(--sans)}
+header{padding:28px 32px 8px;max-width:1280px;margin:0 auto}
+h1{font:600 34px/1.1 var(--serif);margin:0 0 6px;letter-spacing:-.01em}
+header p{margin:0;color:var(--muted);max-width:70ch}
+main{display:grid;grid-template-columns:340px 1fr;gap:24px;padding:20px 32px 40px;max-width:1280px;margin:0 auto}
+@media (max-width:900px){main{grid-template-columns:1fr;padding:16px}header{padding:20px 16px 0}}
+section{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:18px}
+h2{font:600 19px/1.2 var(--serif);margin:0 0 12px}
+.stack{display:grid;gap:24px;align-content:start;min-width:0}
+.stack>*,.check>*{min-width:0}
+.check{display:grid;grid-template-columns:1fr auto;gap:4px 10px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.check:first-of-type{border-top:0}
+.check small{grid-column:1/-1;color:var(--muted);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:8px;background:var(--line);vertical-align:1px}
+.running .dot{background:var(--run);animation:pulse 1s infinite}.passed .dot{background:var(--pass)}.failed .dot{background:var(--fail)}
+@keyframes pulse{50%{opacity:.35}}
+@media (prefers-reduced-motion:reduce){.running .dot{animation:none}}
+button{font:600 14px var(--sans);color:var(--sheet);background:var(--ink);border:0;border-radius:6px;padding:8px 14px;cursor:pointer}
+button.quiet{background:transparent;color:var(--ink);border:1px solid var(--line)}
+button:disabled{opacity:.45;cursor:default}
+button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--honey);outline-offset:2px}
+select,input,textarea{font:14px var(--sans);color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:7px 9px}
+textarea{width:100%;resize:vertical;min-height:64px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.slide{background:#000;border-radius:4px;padding:10px;border:6px solid var(--honey);display:grid;place-items:center;max-width:720px;min-height:240px}
+.slide img{max-height:520px;width:auto;max-width:100%}
+.slide img{width:100%;image-rendering:pixelated;display:block}
+.slide .empty{color:#B8C4BD;font-size:14px;text-align:center;padding:20px}
+.stats{display:flex;gap:26px;flex-wrap:wrap;margin:14px 0 8px;font-variant-numeric:tabular-nums}
+.stats b{display:block;font:600 24px/1 var(--serif)}.stats span{color:var(--muted);font-size:13px}
+.trace{display:flex;gap:2px;height:22px;align-items:flex-end;margin-top:6px}
+.trace i{width:5px;border-radius:1px;background:var(--line)}
+.trace i.L{background:var(--run);height:100%}.trace i.R{background:var(--honey);height:100%}.trace i.S{height:30%}
+.legend{font-size:13px;color:var(--muted)}
+pre{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:12px;max-height:340px;overflow:auto;font:12.5px/1.45 ui-monospace,Consolas,monospace;white-space:pre-wrap;margin:10px 0 0}
+.msg{color:var(--fail);font-size:14px;margin:8px 0 0}
+.out{margin-top:10px;font-size:14px}.out b{font-family:var(--serif);font-size:18px}
+details{border-top:1px solid var(--line);padding:8px 0}details summary{cursor:pointer;font-weight:600}
+</style>
+</head>
+<body>
+<header>
+  <h1>Retro-Judge</h1>
+  <p>Watch a scripted tracker, Laya, a distilled student or a DQN play a retro game live, and run the checks. Everything runs on this computer.</p>
+</header>
+<main>
+  <div class="stack">
+    <section aria-labelledby="checks-h">
+      <h2 id="checks-h">Checks</h2>
+      <div id="checks"></div>
+    </section>
+  </div>
+  <div class="stack">
+    <section aria-labelledby="game-h">
+      <h2 id="game-h">Game</h2>
+      <div class="row" style="margin-bottom:12px">
+        <label for="gamesel" class="legend">Game</label>
+        <select id="gamesel">
+          <option value="space_invaders">Space Invaders (Atari)</option>
+          <option value="Airstriker-Genesis-v0">Airstriker (Genesis)</option>
+        </select>
+        <label for="agent" class="legend">Player</label>
+        <select id="agent">
+          <option value="tracker">Hand-written tracker</option>
+          <option value="random">Random</option>
+          <option value="laya">Laya</option>
+          <option value="student_laya">Fast student + Laya on call</option>
+          <option value="dqn">RL player (learns from score)</option>
+        </select>
+        <label class="legend"><input type="checkbox" id="realtime" checked> Real-time speed</label>
+        <button id="playBtn">Play</button><button id="stopBtn" class="quiet" disabled>Stop</button>
+      </div>
+      <div class="slide"><img id="frame" alt="Live game screen" hidden><div class="empty" id="empty">Pick a game and press Play. It runs in an emulator on this computer.</div></div>
+      <div class="stats" aria-live="polite">
+        <div><b id="sScore">0</b><span>score</span></div>
+        <div><b id="sDec">0</b><span>decisions</span></div>
+        <div><b id="sLives">–</b><span>lives</span></div>
+        <div><b id="sMs">–</b><span>ms per decision</span></div>
+        <div><b id="sCalls">–</b><span>Laya calls</span></div>
+      </div>
+      <div class="trace" id="trace" aria-hidden="true"></div>
+      <div class="legend">Last 120 moves: blue left, amber right, short bar stay.</div>
+      <div id="gameMsg" class="msg" role="alert"></div>
+    </section>
+    <section aria-labelledby="out-h">
+      <h2 id="out-h">Output</h2>
+      <div class="legend" id="outTitle">Pick a check to see its output here.</div>
+      <pre id="log" hidden></pre>
+    </section>
+    <section aria-labelledby="res-h">
+      <div class="row" style="justify-content:space-between"><h2 id="res-h" style="margin:0">Saved results</h2><button class="quiet" id="resBtn">Reload</button></div>
+      <div id="results" style="margin-top:8px"></div>
+    </section>
+  </div>
+</main>
+<script>
+const CHECKS=[["tests","Run all tests","About 5 seconds."],["rl","Train the RL player (DQN)","Learns Space Invaders from the score. About 10 minutes."]];
+const $=id=>document.getElementById(id);
+let jobsByName={}, openJob=null, frameTimer=null;
+async function api(path,body){const r=await fetch(path,body?{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)}:{});
+  const t=await r.text();let d={};try{d=JSON.parse(t)}catch(e){};if(!r.ok)throw new Error(d.error||r.statusText);return d}
+function renderChecks(){$("checks").innerHTML=CHECKS.map(([k,t,h])=>{const j=jobsByName[k];const st=j?j.status:"idle";
+  const sub=j?(j.status==="running"?(j.tail||"Starting…"):`${j.status==="passed"?"Passed":"Failed"} in ${Math.round((j.ended-j.started))} s. Click the name for output.`):h;
+  return `<div class="check ${st}"><a href="#" data-job="${j?j.id:""}" style="color:inherit;text-decoration:none"><span class="dot"></span>${t}</a>
+  <button data-run="${k}" ${st==="running"?"disabled":""}>${st==="running"?"Running":"Run"}</button><small title="${sub.replace(/"/g,"&quot;")}">${sub.replace(/</g,"&lt;")}</small></div>`}).join("")}
+$("checks").addEventListener("click",async e=>{const run=e.target.dataset.run, jid=e.target.closest("[data-job]")?.dataset.job;
+  if(run){e.preventDefault();try{const {id}=await api("/api/run",{job:run});openJob=id;poll()}catch(err){alert(err.message)}}
+  else if(jid){e.preventDefault();openJob=jid;showJob()}});
+async function showJob(){if(!openJob)return;try{const j=await api("/api/job/"+openJob);$("outTitle").textContent=`${j.title}: ${j.status}`;
+  const pre=$("log");const atEnd=pre.scrollTop+pre.clientHeight>=pre.scrollHeight-20;pre.hidden=false;pre.textContent=j.lines.join("\n")||"(no output yet)";if(atEnd)pre.scrollTop=pre.scrollHeight}catch(e){}}
+function renderGame(g){const i=g.info||{};$("sScore").textContent=Math.round(i.score||0);$("sDec").textContent=i.decision||0;$("sLives").textContent=i.lives??"–";
+  $("sMs").textContent=i.ms!=null?(i.ms<0.01?"<0.01":i.ms<1?i.ms.toFixed(2):Math.round(i.ms)):"–";$("sCalls").textContent=i.teacher_calls??"–";
+  $("trace").innerHTML=(g.trace||[]).map(m=>`<i class="${m==="move_left"?"L":m==="move_right"?"R":"S"}"></i>`).join("");
+  $("playBtn").disabled=g.running;$("stopBtn").disabled=!g.running;
+  $("gameMsg").textContent=g.error||"";
+  if(g.result&&!g.running){$("gameMsg").style.color="var(--pass)";$("gameMsg").textContent=`Game over: ${g.result.score} points, ${g.result.decisions} decisions${g.result.teacher_call_rate!=null?`, Laya asked ${Math.round(g.result.teacher_call_rate*100)}% of the time`:""}${g.result.labels_added?`. Saved ${g.result.labels_added} new Laya answers for the next run`:""}.`}
+  else if(g.running&&g.note){$("gameMsg").style.color="var(--muted)";$("gameMsg").textContent=g.note}
+  else $("gameMsg").style.color="";
+  if(g.running&&!frameTimer)frameTimer=setInterval(()=>{const img=new Image();img.onload=()=>{$("frame").src=img.src;$("frame").hidden=false;$("empty").hidden=true};img.src="/api/frame?t="+Date.now()},120);
+  if(!g.running&&frameTimer){clearInterval(frameTimer);frameTimer=null}}
+async function poll(){try{const s=await api("/api/state");jobsByName={};s.jobs.sort((a,b)=>a.started-b.started).forEach(j=>jobsByName[j.name]=j);
+  renderChecks();renderGame(s.game);showJob();
+  const n=(s.laya_logs||{})[$("gamesel").value]||0, opt=$("agent").querySelector('[value="student_laya"]');
+  opt.disabled=n<s.min_labels; opt.textContent=opt.disabled?`Fast student + Laya on call (needs ${s.min_labels} Laya moves, has ${n})`:`Fast student + Laya on call (${n} Laya moves learned)`;
+  }catch(e){$("outTitle").textContent="Lost connection to the lab. Is python -m retrojudge ui still running?"}}
+$("playBtn").onclick=async()=>{$("gameMsg").textContent="Starting…";try{await api("/api/game/start",{agent:$("agent").value,game:$("gamesel").value,realtime:$("realtime").checked})}catch(e){$("gameMsg").textContent=e.message}poll()};
+$("stopBtn").onclick=async()=>{await api("/api/game/stop",{});poll()};
+$("resBtn").onclick=loadResults;
+async function loadResults(){try{const r=await api("/api/results");$("results").innerHTML=r.length?r.map(x=>`<details><summary>${x.name}</summary><pre>${JSON.stringify(x.data,null,1).replace(/</g,"&lt;")}</pre></details>`).join(""):"<p class='legend'>No results yet. Run a check or play a game.</p>"}catch(e){}}
+renderChecks();poll();loadResults();setInterval(poll,700);
+</script>
+</body>
+</html>

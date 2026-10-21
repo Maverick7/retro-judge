@@ -1,0 +1,3 @@
+{"score": 240.0, "decisions": 400, "frames": 3200, "lives_left": 1, "decide_ms_p50": 1185.1052150000214, "agent": "laya", "episode": 0}
+{"score": 240.0, "decisions": 400, "frames": 3200, "lives_left": 1, "decide_ms_p50": 1180.486745499934, "agent": "laya", "episode": 1}
+{"score": 240.0, "decisions": 400, "frames": 3200, "lives_left": 1, "decide_ms_p50": 1200.8248319999666, "agent": "laya", "episode": 2}

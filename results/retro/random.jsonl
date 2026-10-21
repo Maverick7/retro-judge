@@ -1,0 +1,5 @@
+{"score": 140.0, "decisions": 233, "frames": 1864, "lives_left": 0, "decide_ms_p50": 0.01010399999756828, "agent": "random", "episode": 0}
+{"score": 300.0, "decisions": 234, "frames": 1872, "lives_left": 0, "decide_ms_p50": 0.010002000003339617, "agent": "random", "episode": 1}
+{"score": 300.0, "decisions": 238, "frames": 1904, "lives_left": 0, "decide_ms_p50": 0.010056500002519897, "agent": "random", "episode": 2}
+{"score": 280.0, "decisions": 231, "frames": 1848, "lives_left": 0, "decide_ms_p50": 0.01051499999960015, "agent": "random", "episode": 3}
+{"score": 280.0, "decisions": 239, "frames": 1912, "lives_left": 0, "decide_ms_p50": 0.014211999996405211, "agent": "random", "episode": 4}

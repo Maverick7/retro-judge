@@ -1,0 +1,48 @@
+{
+ "student_laya": {
+  "holdout_agreement": 0.858,
+  "runs": [
+   {
+    "score": 160.0,
+    "decisions": 212,
+    "lives": 0,
+    "ms": 0.152
+   },
+   {
+    "score": 160.0,
+    "decisions": 210,
+    "lives": 0,
+    "ms": 0.147
+   },
+   {
+    "score": 160.0,
+    "decisions": 210,
+    "lives": 0,
+    "ms": 0.158
+   }
+  ]
+ },
+ "student_laya_mirrored": {
+  "holdout_agreement": 0.933,
+  "runs": [
+   {
+    "score": 160.0,
+    "decisions": 212,
+    "lives": 0,
+    "ms": 0.164
+   },
+   {
+    "score": 160.0,
+    "decisions": 210,
+    "lives": 0,
+    "ms": 0.149
+   },
+   {
+    "score": 160.0,
+    "decisions": 210,
+    "lives": 0,
+    "ms": 0.143
+   }
+  ]
+ }
+}

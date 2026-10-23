@@ -7,7 +7,8 @@
 <!-- VIDEO: drop the demo clip here, e.g.
 https://github.com/user-attachments/assets/<your-video-id>
 -->
-_Demo video coming soon._
+<p align="center"><img src="docs/media/retro-judge-demo.gif" alt="Space Invaders played live by the scripted tracker, then by the NumPy DQN" width="460"></p>
+<p align="center"><sub>Real recording at 1.6x speed: the hand-written tracker plays first, then the DQN.</sub></p>
 
 ## The three numbers
 
